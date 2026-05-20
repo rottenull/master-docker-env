@@ -2,9 +2,9 @@
 
 ## 👥 Información del Grupo
 * **Institución:** Universidad del Valle
-* **Integrantes:** * Integrante 1 (Nombre Completo y Código)
-  * Integrante 2 (Nombre Completo y Código)
-
+* **Integrantes:** Nombres y códigos
+  * María Fernanda González Ramírez – 202477325
+  * Laura Sofía Echeverry González – 202477067
 ---
 
 ## 📝 Descripción del Proyecto
