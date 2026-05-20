@@ -42,20 +42,20 @@ Pasos sistemáticos ejecutados en la terminal de Ubuntu:
 
 ### 1. Estado del Clúster Local
 El despliegue fue exitoso y los 5 contenedores se encuentran levantados y saludables (`Healthy` / `Running`).
-*(Inserta aquí tu captura de la terminal ejecutando `docker ps`)*
+<img width="1126" height="290" alt="image" src="https://github.com/user-attachments/assets/48365d1a-42a3-401b-bdb7-0300c33c2fa2" />
 
 ### 2. Capa Frontend - Servidor Web Nginx
 Verificación del puerto `8080`, sirviendo el archivo HTML mapeado mediante volúmenes.
-*(Inserta aquí tu imagen: image_e644af.png)*
+<img width="1067" height="154" alt="image" src="https://github.com/user-attachments/assets/d96fc01a-101b-4b72-b781-56481e25db0e" />
 
 ### 3. Capa Lógica - API Node.js (Health Check)
 Verificación del puerto `3000` respondiendo de forma nativa en formato JSON.
-*(Inserta aquí tu imagen: image_e644f2.png)*
+<img width="564" height="179" alt="image" src="https://github.com/user-attachments/assets/34ab614b-a13a-47fd-989d-b0b71c10d210" />
 
 ### 4. Capa de Datos - Conexión Exitosa API 🔄 PostgreSQL
 Demostración de la comunicación inter-contenedor. La API resuelve el DNS interno `postgres_container` y extrae la estampa de tiempo del motor relacional.
-*(Inserta aquí tu imagen: image_e64534.png)*
+<img width="581" height="190" alt="image" src="https://github.com/user-attachments/assets/124bc5b1-69a1-413c-a5cf-da03cf4cc424" />
 
 ### 5. Capa Analítica - Jupyter Lab
 Entorno científico persistente inicializado correctamente mediante Token de seguridad.
-*(Inserta aquí tu imagen: image_e64838.png)*
+<img width="1919" height="1022" alt="image" src="https://github.com/user-attachments/assets/4c998689-faf5-4380-98b3-3b479de7ae48" />
