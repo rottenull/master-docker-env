@@ -1,0 +1,3 @@
+.env
+services/api/node_modules/
+.ipynb_checkpoints/

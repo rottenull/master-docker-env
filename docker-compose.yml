@@ -1,0 +1,87 @@
+version: '3.8'
+
+networks:
+  dmz_frontend:
+    driver: bridge
+  secure_backend:
+    driver: bridge
+
+volumes:
+  postgres_relational_data:
+
+services:
+  # 1. SERVIDOR WEB - NGINX
+  nginx_service:
+    image: nginx:1.25-alpine
+    container_name: nginx_web
+    ports:
+      - "${HOST_WEB_PORT}:80"
+    volumes:
+      - ./services/web/html:/usr/share/nginx/html:ro
+    networks:
+      - dmz_frontend
+    restart: always
+
+  # 2. SERVIDOR DE APLICACIONES - NODE.JS API
+  api_service:
+    build: ./services/api
+    container_name: api_node
+    environment:
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_NAME=${POSTGRES_DB}
+    ports:
+      - "${HOST_API_PORT}:3000"
+    networks:
+      - dmz_frontend
+      - secure_backend
+    depends_on:
+      postgres_service:
+        condition: service_healthy
+    restart: always
+
+  # 3. BASE DE DATOS - POSTGRESQL
+  postgres_service:
+    image: postgres:16-alpine
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_relational_data:/var/lib/postgresql/data
+    networks:
+      - secure_backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 4. ADMINISTRADOR DE BASE DE DATOS - PGADMIN 4
+  pgadmin_service:
+    image: dpage/pgadmin4:8.5
+    container_name: pgadmin_web
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "${HOST_PGADMIN_PORT}:80"
+    networks:
+      - secure_backend
+    depends_on:
+      - postgres_service
+
+  # 5. ENTORNO DE CIENCIA DE DATOS - JUPYTER LAB
+  jupyter_service:
+    image: jupyter/base-notebook:latest
+    container_name: jupyter_workspace
+    ports:
+      - "${HOST_JUPYTER_PORT}:8888"
+    volumes:
+      - ./services/jupyter/notebooks:/home/jovyan/work
+    environment:
+      - JUPYTER_TOKEN=wsl2_docker_2026
+    networks:
+      - secure_backend
