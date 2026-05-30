@@ -1,27 +1,26 @@
-# 🏗️ Orquestación de Infraestructura Multi-Servicio Controlada con Docker y WSL2
+# Configuracion entorno — Contenedor
+## Integrantes del grupo
 
-## 👥 Información del Grupo
-* **Institución:** Universidad del Valle
-* **Integrantes:** Nombres y códigos
-  * María Fernanda González Ramírez – 202477325
-  * Laura Sofía Echeverry González – 202477067
----
+| Nombre Completo                 | Código     | Rol           | Correo Electrónico                        |
+|---------------------------------|------------|---------------|-------------------------------------------|
+| María Fernanda González Ramírez | 202477325  | Colaborador   | maria.gonzalez.r@correounivalle.edu.co    |
+| Laura Sofía Echeverry González  | 202477067  | Colaborador   | echeverry.laura@correounivalle.edu.co     |
 
-## 📝 Descripción del Proyecto
+## Descripción del Proyecto
 Este proyecto implementa un entorno local controlado de alta disponibilidad y multi-contenedorizado utilizando **Docker Compose** sobre el Kernel nativo de Linux mediante **WSL2 (Windows Subsystem for Linux)**. 
 
 El clúster automatiza el despliegue de 5 servicios independientes que interactúan entre sí a través de redes aisladas y puentes seguros, simulando una arquitectura moderna de microservicios en producción.
 
 ---
 
-## 🗺️ Arquitectura del Entorno y Redes
+## Arquitectura del Entorno y Redes
 El diseño se segmenta en dos redes virtuales internas (`bridge`):
 1. **`dmz_frontend`**: Zona desmilitarizada expuesta que interconecta el Servidor Web (Nginx) y la API lógica (Node.js).
 2. **`secure_backend`**: Red privada aislada de accesos externos directos, encargada de la intercomunicación segura entre la API, el motor relacional (PostgreSQL), la administración (pgAdmin) y el laboratorio de analítica (Jupyter Lab).
 
 ---
 
-## 🛠️ Requisitos Previos e Instalación Base (WSL2 Linux)
+## Requisitos Previos e Instalación Base (WSL2 Linux)
 Pasos sistemáticos ejecutados en la terminal de Ubuntu:
 1. Actualización de dependencias principales del sistema: `sudo apt update && sudo apt upgrade -y`
 2. Configuración de repositorios de Docker e instalación nativa de `docker-ce` y `docker-compose-plugin`.
@@ -30,7 +29,7 @@ Pasos sistemáticos ejecutados en la terminal de Ubuntu:
 
 ---
 
-## 💻 Comandos Operativos Utilizados
+## Comandos Operativos Utilizados
 * **Despliegue del entorno:** `docker compose up -d`
 * **Validación de orquestación:** `docker ps`
 * **Inspección de logs:** `docker logs api_node`
@@ -38,7 +37,7 @@ Pasos sistemáticos ejecutados en la terminal de Ubuntu:
 
 ---
 
-## 📸 Evidencias de Funcionamiento (Resultados del Laboratorio)
+## Evidencias de Funcionamiento (Resultados del Laboratorio)
 
 ### 1. Estado del Clúster Local
 El despliegue fue exitoso y los 5 contenedores se encuentran levantados y saludables (`Healthy` / `Running`).
@@ -52,7 +51,7 @@ Verificación del puerto `8080`, sirviendo el archivo HTML mapeado mediante vol�
 Verificación del puerto `3000` respondiendo de forma nativa en formato JSON.
 <img width="564" height="179" alt="image" src="https://github.com/user-attachments/assets/34ab614b-a13a-47fd-989d-b0b71c10d210" />
 
-### 4. Capa de Datos - Conexión Exitosa API 🔄 PostgreSQL
+### 4. Capa de Datos - Conexión Exitosa API — PostgreSQL
 Demostración de la comunicación inter-contenedor. La API resuelve el DNS interno `postgres_container` y extrae la estampa de tiempo del motor relacional.
 <img width="581" height="190" alt="image" src="https://github.com/user-attachments/assets/124bc5b1-69a1-413c-a5cf-da03cf4cc424" />
 
