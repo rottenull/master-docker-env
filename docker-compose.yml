@@ -85,3 +85,7 @@ services:
       - JUPYTER_TOKEN=wsl2_docker_2026
     networks:
       - secure_backend
+
+python_app:
+    build: ./services/python-script
+    container_name: archivo_python
